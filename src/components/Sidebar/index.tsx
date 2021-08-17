@@ -11,16 +11,16 @@ export function Sidebar() {
           <NavLink icon={RiDashboardLine} color="pink.400">
             Dashboard
           </NavLink>
-          <NavLink icon={RiContactsLine} color="pink.400">
+          <NavLink icon={RiContactsLine}>
             Usuários
           </NavLink>
         </NavSection>
 
         <NavSection title="AUTOMAÇÃO">
-          <NavLink icon={RiInputMethodLine} color="pink.400">
+          <NavLink icon={RiInputMethodLine}>
             Formulários
           </NavLink>
-          <NavLink icon={RiGitMergeLine} color="pink.400">
+          <NavLink icon={RiGitMergeLine}>
             Automação
           </NavLink>
         </NavSection>
