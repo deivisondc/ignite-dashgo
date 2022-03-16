@@ -5,14 +5,25 @@ import { RiAddLine, RiPencilLine } from "react-icons/ri";
 import { Header } from "../../components/Header";
 import { Pagination } from "../../components/Pagination";
 import { Sidebar } from "../../components/Sidebar";
-import { useUsers } from '../../hooks/useUsers';
+import { getUsers, User, useUsers } from '../../hooks/useUsers';
 import { useState } from "react";
 import { queryClient } from "../../services/queryClient";
 import { api } from "../../services/api";
+import { GetServerSideProps } from "next";
 
-export default function UserList() {
+interface UserListProps {
+  users: User[],
+  totalCount: number
+}
+
+export default function UserList({ users, totalCount }: UserListProps) {
   const [currentPage, setCurrentPage] = useState(1)
-  const { data, isLoading, isRefetching, error } = useUsers(currentPage)
+  const { data, isLoading, isRefetching, error } = useUsers(currentPage, {
+    initialData: {
+      users,
+      totalCount
+    }
+  })
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -127,4 +138,15 @@ export default function UserList() {
       </Flex>
     </Box>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const { users, totalCount } = await getUsers(1)
+
+  return {
+    props: {
+      users,
+      totalCount
+    }
+  }
 }
